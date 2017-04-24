@@ -14,7 +14,7 @@ from util.dataset import ReviewsDataset
 #rev_ids, embedding_dict, db_ptr
 def train(model, args):
 	train_loader = data.DataLoader(
-		ReviewsDataset(args.db, args.embed_dict),
+		ReviewsDataset(args.db, args.table, args.embed_dict),
 		batch_size = args.batch_size, shuffle = True,
 		num_workers = 8, pin_memory = True)
 	
@@ -47,6 +47,8 @@ parser.add_argument('--batch-size', type=int, default=32,
     help='batch size (default: 32)')
 parser.add_argument('--db', type=str, default = 'reviews.db',
     help='db that houses the review text')
+parser.add_argument('--table', type=str, default = 'REVIEWS',
+    help='table in db we need')
 parser.add_argument('--embed-dict', type=str, default = 'e_dict.p',
     help='dictionary that houses the embeddings')
 parser.add_argument('--save-name', type=str, default='rev_cnn',
