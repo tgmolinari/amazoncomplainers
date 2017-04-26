@@ -12,25 +12,21 @@ class ReviewsDataset(data.Dataset):
 		self.db = sqlite3.connect(db_ptr)
 		self.table_name = table_name
 		rev_ids = []
-		cur = self.db.execute("SELECT REV_ID FROM " + self.table_name)
+		cur = self.db.execute("SELECT ID FROM " + self.table_name)
 		for k in cur:
 			rev_ids.append(k[0])
 		self.reviews = rev_ids
 
-	# TODO: Get db schema and test out returning score and review text
 	def __getitem__(self, index):
 		rev_id = self.reviews[index]
-		cur = self.db.execute("SELECT Score, Text FROM " + self.table_name + " WHERE REV_ID = "  + str(rev_id))
+		cur = self.db.execute("SELECT RATING, REVIEW FROM " + self.table_name + " WHERE ID = "  + str(rev_id))
 		score = cur[0]
 		rev_text = cur[1]
+		
 		rev_embed = numpy.zeros(1,500,300)
-		# Assumes the text is only mildly preprocessed, could change depending on final DB
-		review = [token for token in rev_text if token in self.embeddings.keys()]
-		rev_len = len(review)
+		review = rev_text.split(" ")
 
-		if rev_len > 500:
-			rev_len = 500
-		for i in range(rev_len):
+		for i in range(500):
 			rev_embed[0,i,:] = self.embeddings[review[i]]
 		
 		return score, rev_embed

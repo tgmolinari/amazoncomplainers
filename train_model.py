@@ -47,7 +47,7 @@ parser.add_argument('--batch-size', type=int, default=32,
     help='batch size (default: 32)')
 parser.add_argument('--db', type=str, default = 'reviews.db',
     help='db that houses the review text')
-parser.add_argument('--table', type=str, default = 'REVIEWS',
+parser.add_argument('--table', type=str, default = 'Review',
     help='table in db we need')
 parser.add_argument('--embed-dict', type=str, default = 'e_dict.p',
     help='dictionary that houses the embeddings')
