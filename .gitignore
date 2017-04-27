@@ -22,7 +22,6 @@ data/*
 # ignore python crap
 *.pyc
 .ipynb_checkpoints/
-__init__.py
 *.ipynb_checkpoints
 ipynb_checkpoints/
 
